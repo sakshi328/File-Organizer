@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative File Organizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Creative File Organizer</h1>
+
+        <!-- Folder upload -->
+        <input type="file" id="fileInput" multiple webkitdirectory directory>
+        <button onclick="uploadFiles()">Organize Files</button>
+
+        <div id="status"></div>
+
+        <!-- Display organized folders -->
+        <h2>Organized Folders</h2>
+        <div id="folders">
+            {% for folder, files in organized.items() %}
+                <div class="folder">
+                    <h3>{{ folder }}</h3>
+                    <div class="files">
+                        {% for file in files %}
+                            <a href="{{ url_for('serve_file', folder=folder, filename=file) }}" target="_blank">
+                                <button>{{ file }}</button>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
